@@ -1,6 +1,14 @@
+const path = require("path");
+const join = (url) => {
+  return path.join(__dirname, url);
+};
 module.exports = {
   entry: {
-    main: "./main.js",
+    main: "./src/main.js",
+  },
+  output: {
+    path: join("dist"),
+    filename: "main.js",
   },
   module: {
     rules: [
@@ -9,16 +17,16 @@ module.exports = {
         // exclude: /(node_modules|bower_components)/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-            plugins: [
-              ["@babel/plugin-transform-react-jsx", { pragma: "ToyReact.createElement" }],
-            ],
-          },
         },
       },
     ],
   },
   mode: "development",
   optimization: { minimize: false },
+  devServer: {
+    contentBase: join("src"),
+    compress: true,
+    port: 9000,
+    progress: true,
+  },
 };

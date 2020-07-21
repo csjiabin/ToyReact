@@ -4,9 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "dev": "webpack --watch",
+    "dev": "webpack-dev-server",
     "build": "webpack"
-
   },
   "keywords": [],
   "author": "",
