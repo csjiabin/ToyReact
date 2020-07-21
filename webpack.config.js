@@ -1,13 +1,15 @@
+"use strict";
 const path = require("path");
-const join = (url) => {
-  return path.join(__dirname, url);
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const resolve = (url) => {
+  return path.resolve(__dirname, url);
 };
 module.exports = {
   entry: {
     main: "./src/main.js",
   },
   output: {
-    path: join("dist"),
+    path: resolve("dist"),
     filename: "main.js",
   },
   module: {
@@ -21,10 +23,18 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      //添加在这里
+      template: resolve("src/index.html"),
+      filename: "index.html",
+      inject: "body",
+    }),
+  ],
   mode: "development",
   optimization: { minimize: false },
   devServer: {
-    contentBase: join("src"),
+    contentBase: resolve("src"),
     compress: true,
     port: 9000,
     progress: true,
