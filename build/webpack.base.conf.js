@@ -26,15 +26,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       //添加在这里
-      template: resolve("src/index.html"),
+      template: "index.html",
       filename: "index.html",
       inject: true,
     }),
   ],
-  devServer: {
-    contentBase: resolve("src"),
-    compress: true,
-    port: 9000,
-    progress: true,
-  },
 };
