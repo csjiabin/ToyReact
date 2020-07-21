@@ -1,8 +1,8 @@
 "use strict";
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const resolve = (url) => {
-  return path.resolve(__dirname, url);
+const resolve = (dir) => {
+  return path.resolve(__dirname, '..', dir);
 };
 module.exports = {
   entry: {
@@ -28,11 +28,9 @@ module.exports = {
       //添加在这里
       template: resolve("src/index.html"),
       filename: "index.html",
-      inject: "body",
+      inject: true,
     }),
   ],
-  mode: "development",
-  optimization: { minimize: false },
   devServer: {
     contentBase: resolve("src"),
     compress: true,
