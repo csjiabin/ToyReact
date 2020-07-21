@@ -7,7 +7,15 @@
     "dev": "webpack-dev-server",
     "build": "webpack"
   },
-  "keywords": [],
+  "keywords": [
+    "React",
+    "react",
+    "toy",
+    "Toy",
+    "Toy-React",
+    "toy-react",
+    "ToyReact"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {

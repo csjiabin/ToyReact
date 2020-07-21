@@ -9,7 +9,7 @@ class MyComponent extends Component {
         <span>word</span>
         <span>!</span>
         <div>
-          {false}
+          {true}
           {this.children}
         </div>
       </div>
