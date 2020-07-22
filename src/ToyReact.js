@@ -48,7 +48,7 @@ export class Component {
   }
   setAttribute(name, value) {
     if (name.match(/^on([\s\S]+)$/)) {
-      console.log(RegExp.$1);
+      // console.log(RegExp.$1);
     }
     this.props[name] = value;
     this[name] = value;
@@ -77,9 +77,13 @@ export class Component {
   setState(state) {
     let merge = (oldState, newState) => {
       for (const p in newState) {
-        if (typeof newState[p] === "object") {
+        if (typeof newState[p] === "object" && newState[p] != null) {
           if (typeof oldState[p] !== "object") {
-            oldState[p] = {};
+            if (newState[p] instanceof Array) {
+              oldState[p] = [];
+            } else {
+              oldState[p] = {};
+            }
           }
           merge(oldState[p], newState[p]);
         } else {
@@ -111,6 +115,9 @@ const createElement = (type, attributes, ...children) => {
       if (typeof child === "object" && child instanceof Array) {
         insertChildren(child);
       } else {
+        if (child === null || child === void 0) {
+          child = "";
+        }
         if (
           !(child instanceof Component) &&
           !(child instanceof ElementWrapper) &&
