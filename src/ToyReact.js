@@ -89,13 +89,13 @@ export class Component {
   }
 
   update() {
-    let placeholder = document.createElement("placeholder");
-    let range = document.createRange();
-    range.setStart(this.range.endContainer, this.range.endOffset);
-    range.setEnd(this.range.endContainer, this.range.endOffset);
-    range.insertNode(placeholder);
+    // let placeholder = document.createElement("placeholder");
+    // let range = document.createRange();
+    // range.setStart(this.range.endContainer, this.range.endOffset);
+    // range.setEnd(this.range.endContainer, this.range.endOffset);
+    // range.insertNode(placeholder);
     
-    this.range.deleteContents();
+    // this.range.deleteContents();
 
     let vdom = this.render();
     vdom.mountTo(this.range);
