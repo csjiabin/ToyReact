@@ -115,10 +115,10 @@ export class Component {
 
   mountTo(range) {
     this.range = range;
-    this.update();
+    this.updated();
   }
 
-  update() {
+  updated() {
     let vdom = this.vdom;
     if (this.oldVdom) {
       let isSameNode = (node1, node2) => {
@@ -153,7 +153,6 @@ export class Component {
         return true;
       };
 
-      // 比对children
       let isSameTree = (node1, node2) => {
         if (!isSameNode(node1, node2)) {
           return false;
@@ -215,7 +214,7 @@ export class Component {
       this.state = {};
     }
     merge(this.state, state);
-    this.update();
+    this.updated();
   }
 }
 
