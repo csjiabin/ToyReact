@@ -49,7 +49,7 @@ class ElementWrapper {
     let endRange = document.createRange();
     endRange.setStart(range.endContainer, range.endOffset);
     endRange.setEnd(range.endContainer, range.endOffset);
-    endRange.insertNode(placeholder)
+    endRange.insertNode(placeholder);
     range.deleteContents();
     let element = document.createElement(this.type);
     for (const name in this.props) {
@@ -115,11 +115,12 @@ export class Component {
 
   mountTo(range) {
     this.range = range;
-    this.updated();
+    this.update();
   }
 
-  updated() {
+  update() {
     let vdom = this.vdom;
+    console.log(vdom);
     if (this.oldVdom) {
       let isSameNode = (node1, node2) => {
         if (node1.type !== node2.type) {
@@ -153,6 +154,7 @@ export class Component {
         return true;
       };
 
+      // 比对children
       let isSameTree = (node1, node2) => {
         if (!isSameNode(node1, node2)) {
           return false;
@@ -214,7 +216,7 @@ export class Component {
       this.state = {};
     }
     merge(this.state, state);
-    this.updated();
+    this.update();
   }
 }
 
