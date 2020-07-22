@@ -120,7 +120,6 @@ export class Component {
 
   update() {
     let vdom = this.vdom;
-    console.log(vdom);
     if (this.oldVdom) {
       let isSameNode = (node1, node2) => {
         if (node1.type !== node2.type) {
