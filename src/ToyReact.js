@@ -45,13 +45,17 @@ class ElementWrapper {
 
   mountTo(range) {
     this.range = range;
-    let placeholder = document.createComment("placeholder");
-    let endRange = document.createRange();
-    endRange.setStart(range.endContainer, range.endOffset);
-    endRange.setEnd(range.endContainer, range.endOffset);
-    endRange.insertNode(placeholder);
+
+    // let placeholder = document.createComment("placeholder");
+    // let endRange = document.createRange();
+    // endRange.setStart(range.endContainer, range.endOffset);
+    // endRange.setEnd(range.endContainer, range.endOffset);
+    // endRange.insertNode(placeholder);
+
     range.deleteContents();
+    // 创建一个真实dom
     let element = document.createElement(this.type);
+
     for (let name in this.props) {
       let value = this.props[name];
       if (name.match(/^on([\s\S]+)$/)) {
@@ -123,9 +127,12 @@ export class Component {
     let vdom = this.vdom;
     if (this.oldVdom) {
       // 比对node
-      let isSameNode = (node1 = {}, node2 = {}) => {
+      const isSameNode = (node1, node2) => {
         if (node1.type !== node2.type) {
           return false;
+        }
+        if (Object.keys(node1).length !== Object.keys(node2).length) {
+          return false
         }
         for (let name in node1.props) {
           // if (
@@ -156,7 +163,7 @@ export class Component {
       };
 
       // 比对children
-      let isSameTree = (node1, node2) => {
+      const isSameTree = (node1, node2) => {
         if (!isSameNode(node1, node2)) {
           return false;
         }
@@ -170,7 +177,9 @@ export class Component {
         }
         return true;
       };
-      let replace = (newTree = {}, oldTree = {}, indent) => {
+
+      // diff比对替换
+      const replace = (newTree, oldTree, indent) => {
         console.log(indent + "new:", newTree);
         console.log(indent + "old:", oldTree);
         if (isSameTree(newTree, oldTree)) {
@@ -198,6 +207,7 @@ export class Component {
   appendChild(vchild) {
     this.children.push(vchild);
   }
+  
   setState(state) {
     let merge = (oldState, newState) => {
       for (let p in newState) {

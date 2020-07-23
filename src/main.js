@@ -3,6 +3,9 @@ import ToyReact, { Component } from "./ToyReact";
 import "./style.css";
 
 class Square extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <button className="square" onClick={this.props.onClick}>
@@ -13,6 +16,9 @@ class Square extends Component {
 }
 
 class Board extends Component {
+  constructor(props) {
+    super(props);
+  }
   renderSquare(i) {
     return (
       <Square
@@ -114,10 +120,10 @@ class Game extends Component {
             onClick={(i) => this.handleClick(i)}
           />
         </div>
-        {/* <div className="game-info">
+        <div className="game-info">
           <div>{status}</div>
           <ol>{moves}</ol>
-        </div> */}
+        </div>
       </div>
     );
   }
