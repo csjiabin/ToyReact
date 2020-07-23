@@ -128,7 +128,7 @@ class Game extends Component {
 // let game = <Game />
 // console.log(game.vdom)
 
-ToyReact.render(<Game />, document.body);
+ToyReact.render(<Game />, document.getElementById('root'));
 
 function calculateWinner(squares) {
   const lines = [

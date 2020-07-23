@@ -260,6 +260,7 @@ const createElement = (type, attributes, ...children) => {
 
 const render = (vdom, element) => {
   let range = document.createRange();
+  // console.log(element,element.children)
   if (element.children.length) {
     range.setStartAfter(element.lastChild);
     range.setEndAfter(element.lastChild);
