@@ -52,9 +52,8 @@ class ElementWrapper {
     endRange.insertNode(placeholder);
     range.deleteContents();
     let element = document.createElement(this.type);
-    for (const name in this.props) {
+    for (let name in this.props) {
       let value = this.props[name];
-      element.setAttribute(name, value);
       if (name.match(/^on([\s\S]+)$/)) {
         let eventName = RegExp.$1.replace(/^[\s\S]/, (s) => s.toLowerCase());
         element.addEventListener(eventName, value);
@@ -64,7 +63,7 @@ class ElementWrapper {
       }
       element.setAttribute(name, value);
     }
-    for (const child of this.children) {
+    for (let child of this.children) {
       let range = document.createRange();
       if (element.children.length) {
         range.setStartAfter(element.lastChild);
@@ -120,13 +119,13 @@ export class Component {
 
   update() {
     let vdom = this.vdom;
-    console.log(vdom);
     if (this.oldVdom) {
-      let isSameNode = (node1, node2) => {
+      // 比对node
+      let isSameNode = (node1 = {}, node2 = {}) => {
         if (node1.type !== node2.type) {
           return false;
         }
-        for (const name in node1.props) {
+        for (let name in node1.props) {
           // if (
           //   typeof node1.props[name] === "function" &&
           //   typeof node2.props[name] === "function" &&
@@ -169,7 +168,9 @@ export class Component {
         }
         return true;
       };
-      let replace = (newTree, oldTree) => {
+      let replace = (newTree = {}, oldTree = {}, indent) => {
+        console.log(indent + "new:", newTree);
+        console.log(indent + "old:", oldTree);
         if (isSameTree(newTree, oldTree)) {
           return;
         }
@@ -177,11 +178,11 @@ export class Component {
           newTree.mountTo(oldTree.range);
         } else {
           for (let i = 0; i < newTree.children.length; i++) {
-            replace(newTree.children[i], oldTree.children[i]);
+            replace(newTree.children[i], oldTree.children[i], "  " + indent);
           }
         }
       };
-      replace(vdom, this.oldVdom);
+      replace(vdom, this.oldVdom, "");
     } else {
       vdom.mountTo(this.range);
     }
@@ -197,7 +198,7 @@ export class Component {
   }
   setState(state) {
     let merge = (oldState, newState) => {
-      for (const p in newState) {
+      for (let p in newState) {
         if (typeof newState[p] === "object" && newState[p] != null) {
           if (typeof oldState[p] !== "object") {
             if (newState[p] instanceof Array) {
@@ -228,7 +229,7 @@ const createElement = (type, attributes, ...children) => {
   } else {
     element = new type();
   }
-  for (const name in attributes) {
+  for (let name in attributes) {
     element.setAttribute(name, attributes[name]);
   }
   let insertChildren = (children) => {
