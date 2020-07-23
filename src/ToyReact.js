@@ -57,11 +57,13 @@ class ElementWrapper {
       if (name.match(/^on([\s\S]+)$/)) {
         let eventName = RegExp.$1.replace(/^[\s\S]/, (s) => s.toLowerCase());
         element.addEventListener(eventName, value);
+      } else {
+        if (name === "className") {
+          element.setAttribute("class", value);
+        } else {
+          element.setAttribute(name, value);
+        }
       }
-      if (name === "className") {
-        element.setAttribute("class", value);
-      }
-      element.setAttribute(name, value);
     }
     for (let child of this.children) {
       let range = document.createRange();
